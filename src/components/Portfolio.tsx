@@ -1,15 +1,17 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { Github, ArrowUp } from 'lucide-react';
+import ProjectModal from './ProjectModal';
 
 interface Project {
   id: number;
   title: string;
   description: string;
+  longDescription: string;
   image: string;
   technologies: string[];
   githubUrl: string;
   liveUrl: string;
+  features: string[];
 }
 
 const projects: Project[] = [
@@ -17,28 +19,34 @@ const projects: Project[] = [
     id: 1,
     title: "FitTracker Pro",
     description: "A comprehensive fitness tracking app with workout plans, progress monitoring, and social features.",
+    longDescription: "FitTracker Pro is a full-stack fitness application that helps users track their workouts, monitor progress, and connect with other fitness enthusiasts. Built with modern web technologies for optimal performance.",
     image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop",
-    technologies: ["React", "Node.js", "MongoDB"],
+    technologies: ["React", "Node.js", "MongoDB", "Express", "Socket.io"],
     githubUrl: "https://github.com/username/fittracker",
-    liveUrl: "https://fittracker-demo.vercel.app"
+    liveUrl: "https://fittracker-demo.vercel.app",
+    features: ["Real-time workout tracking", "Progress analytics", "Social features", "Custom workout plans", "Nutrition tracking"]
   },
   {
     id: 2,
     title: "EcoShop Marketplace",
     description: "Sustainable e-commerce platform with carbon footprint tracking and eco-friendly product recommendations.",
+    longDescription: "EcoShop is an innovative e-commerce platform focused on sustainability. It features carbon footprint calculations, eco-friendly product recommendations, and green shipping options.",
     image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop",
-    technologies: ["Next.js", "Stripe", "PostgreSQL"],
+    technologies: ["Next.js", "Stripe", "PostgreSQL", "Prisma", "TypeScript"],
     githubUrl: "https://github.com/username/ecoshop",
-    liveUrl: "https://ecoshop-demo.vercel.app"
+    liveUrl: "https://ecoshop-demo.vercel.app",
+    features: ["Carbon footprint tracking", "Sustainable product filtering", "Green shipping options", "Eco-score ratings", "Payment integration"]
   },
   {
     id: 3,
     title: "DevBlog CMS",
     description: "Modern blogging platform for developers with syntax highlighting, markdown support, and analytics.",
+    longDescription: "A content management system specifically designed for developers to share their knowledge with built-in code highlighting, markdown editing, and comprehensive analytics.",
     image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=400&h=300&fit=crop",
-    technologies: ["React", "Firebase", "Tailwind"],
+    technologies: ["React", "Firebase", "Tailwind", "MDX", "Vercel"],
     githubUrl: "https://github.com/username/devblog",
-    liveUrl: "https://devblog-demo.vercel.app"
+    liveUrl: "https://devblog-demo.vercel.app",
+    features: ["Markdown editor", "Syntax highlighting", "Analytics dashboard", "SEO optimization", "Comment system"]
   },
   {
     id: 4,
@@ -124,6 +132,19 @@ const projects: Project[] = [
 ];
 
 const Portfolio = () => {
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openProjectModal = (project: Project) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedProject(null);
+  };
+
   return (
     <section id="portfolio" className="py-20 px-6">
       <div className="max-w-6xl mx-auto">
@@ -137,11 +158,12 @@ const Portfolio = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
+          {projects.slice(0, 3).map((project, index) => (
             <div
               key={project.id}
-              className="group backdrop-blur-lg bg-white/5 rounded-2xl border border-white/10 overflow-hidden hover:bg-white/10 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/10 animate-scale-in"
+              className="group backdrop-blur-lg bg-white/5 rounded-2xl border border-white/10 overflow-hidden hover:bg-white/10 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/10 animate-scale-in cursor-pointer"
               style={{ animationDelay: `${index * 100}ms` }}
+              onClick={() => openProjectModal(project)}
             >
               <div className="relative overflow-hidden">
                 <img
@@ -152,22 +174,24 @@ const Portfolio = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <div className="absolute bottom-4 left-4 right-4 transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
                   <div className="flex gap-2">
-                    <a
-                      href={project.githubUrl}
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open(project.githubUrl, '_blank');
+                      }}
                       className="backdrop-blur-sm bg-black/50 p-2 rounded-full hover:bg-black/70 transition-colors duration-200"
-                      target="_blank"
-                      rel="noopener noreferrer"
                     >
                       <Github className="w-4 h-4" />
-                    </a>
-                    <a
-                      href={project.liveUrl}
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open(project.liveUrl, '_blank');
+                      }}
                       className="backdrop-blur-sm bg-blue-500/50 p-2 rounded-full hover:bg-blue-500/70 transition-colors duration-200"
-                      target="_blank"
-                      rel="noopener noreferrer"
                     >
                       <ArrowUp className="w-4 h-4 rotate-45" />
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -180,7 +204,7 @@ const Portfolio = () => {
                   {project.description}
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {project.technologies.map((tech, techIndex) => (
+                  {project.technologies.slice(0, 3).map((tech, techIndex) => (
                     <span
                       key={techIndex}
                       className="px-3 py-1 text-xs bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/20 rounded-full text-blue-300"
@@ -188,12 +212,29 @@ const Portfolio = () => {
                       {tech}
                     </span>
                   ))}
+                  {project.technologies.length > 3 && (
+                    <span className="px-3 py-1 text-xs text-gray-400">
+                      +{project.technologies.length - 3} more
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
           ))}
         </div>
+
+        <div className="text-center mt-12">
+          <button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105">
+            View All Projects
+          </button>
+        </div>
       </div>
+
+      <ProjectModal 
+        project={selectedProject}
+        isOpen={isModalOpen}
+        onClose={closeModal}
+      />
     </section>
   );
 };
