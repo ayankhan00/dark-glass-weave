@@ -24,7 +24,7 @@ const Hero = () => {
       <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
         <div className="backdrop-blur-lg bg-white/5 rounded-3xl p-8 md:p-12 border border-white/10 shadow-2xl animate-fade-in-up">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent leading-tight">
-            Hi, I'm Alex Chen
+            Hi, I'm Ayan Khan
           </h1>
           <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold mb-8 text-gray-300">
             Full-Stack Developer
@@ -44,7 +44,7 @@ const Hero = () => {
             </button>
             
             <a 
-              href="mailto:alex.chen@example.com"
+              href="mailto:ayan.gomail@gmail.com"
               className="backdrop-blur-sm bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-full font-semibold border border-white/20 hover:border-white/30 transition-all duration-300 transform hover:scale-105"
             >
               Get In Touch

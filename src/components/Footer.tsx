@@ -12,7 +12,7 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">
               <h3 className="text-xl font-semibold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                Alex Chen
+                Ayan Khan
               </h3>
               <p className="text-gray-400 text-sm mt-1">
                 Full-Stack Developer
@@ -22,7 +22,7 @@ const Footer = () => {
             <div className="flex items-center space-x-6">
               <div className="flex space-x-4">
                 <a
-                  href="https://github.com/alexchen"
+                  href="https://github.com/ayankhan00"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-400 hover:text-white transition-colors duration-200"
@@ -32,7 +32,7 @@ const Footer = () => {
                 </a>
                 
                 <a
-                  href="https://linkedin.com/in/alexchen"
+                  href="https://linkedin.com/in/ayankhan1"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-400 hover:text-white transition-colors duration-200"

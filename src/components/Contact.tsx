@@ -121,10 +121,10 @@ const Contact = () => {
                 <div>
                   <h4 className="font-semibold text-gray-300 mb-1">Email</h4>
                   <a 
-                    href="mailto:alex.chen@example.com"
+                    href="mailto:ayan.gomail@gmail.com"
                     className="text-blue-400 hover:text-blue-300 transition-colors duration-200"
                   >
-                    alex.chen@example.com
+                    ayan.gomail@gmail.com
                   </a>
                 </div>
                 
@@ -150,7 +150,7 @@ const Contact = () => {
               
               <div className="flex space-x-4">
                 <a
-                  href="https://github.com/alexchen"
+                  href="https://github.com/ayankhan00"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group backdrop-blur-sm bg-white/10 hover:bg-white/20 p-4 rounded-lg border border-white/20 hover:border-white/30 transition-all duration-300 transform hover:scale-105"
@@ -159,7 +159,7 @@ const Contact = () => {
                 </a>
                 
                 <a
-                  href="https://linkedin.com/in/alexchen"
+                  href="https://linkedin.com/in/ayankhan1"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group backdrop-blur-sm bg-white/10 hover:bg-white/20 p-4 rounded-lg border border-white/20 hover:border-white/30 transition-all duration-300 transform hover:scale-105"
