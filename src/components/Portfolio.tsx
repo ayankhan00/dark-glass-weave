@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Github, ArrowUp } from 'lucide-react';
 import ProjectModal from './ProjectModal';
@@ -52,82 +53,100 @@ const projects: Project[] = [
     id: 4,
     title: "CryptoTracker",
     description: "Real-time cryptocurrency tracking app with portfolio management and price alerts.",
+    longDescription: "A comprehensive cryptocurrency tracking application that provides real-time price updates, portfolio management, and intelligent price alerts for informed trading decisions.",
     image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&h=300&fit=crop",
-    technologies: ["Vue.js", "Express", "Redis"],
+    technologies: ["Vue.js", "Express", "Redis", "WebSocket", "CoinGecko API"],
     githubUrl: "https://github.com/username/cryptotracker",
-    liveUrl: "https://cryptotracker-demo.vercel.app"
+    liveUrl: "https://cryptotracker-demo.vercel.app",
+    features: ["Real-time price tracking", "Portfolio management", "Price alerts", "Market analysis", "Trading history"]
   },
   {
     id: 5,
     title: "TaskFlow Manager",
     description: "Collaborative project management tool with real-time updates, file sharing, and team communication.",
+    longDescription: "TaskFlow is a modern project management solution that enables teams to collaborate effectively with real-time updates, file sharing capabilities, and integrated communication features.",
     image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=300&fit=crop",
-    technologies: ["React", "Socket.io", "MongoDB"],
+    technologies: ["React", "Socket.io", "MongoDB", "Express", "AWS S3"],
     githubUrl: "https://github.com/username/taskflow",
-    liveUrl: "https://taskflow-demo.vercel.app"
+    liveUrl: "https://taskflow-demo.vercel.app",
+    features: ["Real-time collaboration", "File sharing", "Task automation", "Team chat", "Progress tracking"]
   },
   {
     id: 6,
     title: "WeatherWise",
     description: "Beautiful weather application with detailed forecasts, interactive maps, and weather alerts.",
+    longDescription: "WeatherWise provides accurate weather forecasts with an intuitive interface, interactive weather maps, and smart alerts to keep users informed about changing weather conditions.",
     image: "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=400&h=300&fit=crop",
-    technologies: ["React Native", "OpenWeather API", "Redux"],
+    technologies: ["React Native", "OpenWeather API", "Redux", "MapBox", "Push Notifications"],
     githubUrl: "https://github.com/username/weatherwise",
-    liveUrl: "https://weatherwise-demo.vercel.app"
+    liveUrl: "https://weatherwise-demo.vercel.app",
+    features: ["7-day forecasts", "Weather alerts", "Interactive maps", "Location tracking", "Offline support"]
   },
   {
     id: 7,
     title: "FoodieFind",
     description: "Restaurant discovery app with AI-powered recommendations, reviews, and table booking.",
+    longDescription: "FoodieFind uses artificial intelligence to provide personalized restaurant recommendations based on user preferences, dietary restrictions, and location, with integrated booking functionality.",
     image: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=400&h=300&fit=crop",
-    technologies: ["Flutter", "Django", "PostgreSQL"],
+    technologies: ["Flutter", "Django", "PostgreSQL", "TensorFlow", "Google Places API"],
     githubUrl: "https://github.com/username/foodiefind",
-    liveUrl: "https://foodiefind-demo.vercel.app"
+    liveUrl: "https://foodiefind-demo.vercel.app",
+    features: ["AI recommendations", "Table booking", "Reviews & ratings", "Menu browsing", "Dietary filters"]
   },
   {
     id: 8,
     title: "CodeShare",
     description: "Real-time collaborative code editor with syntax highlighting, version control, and video chat.",
+    longDescription: "CodeShare enables developers to collaborate on code in real-time with features like live editing, version control integration, and built-in video communication for pair programming sessions.",
     image: "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=400&h=300&fit=crop",
-    technologies: ["React", "WebRTC", "Socket.io"],
+    technologies: ["React", "WebRTC", "Socket.io", "Monaco Editor", "Git"],
     githubUrl: "https://github.com/username/codeshare",
-    liveUrl: "https://codeshare-demo.vercel.app"
+    liveUrl: "https://codeshare-demo.vercel.app",
+    features: ["Live code editing", "Video chat", "Version control", "Multiple languages", "Screen sharing"]
   },
   {
     id: 9,
     title: "FinanceTracker",
     description: "Personal finance management app with expense tracking, budget planning, and investment insights.",
+    longDescription: "A comprehensive personal finance application that helps users track expenses, plan budgets, and gain insights into their investment portfolio with detailed analytics and forecasting.",
     image: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=400&h=300&fit=crop",
-    technologies: ["Angular", "NestJS", "MySQL"],
+    technologies: ["Angular", "NestJS", "MySQL", "Chart.js", "Plaid API"],
     githubUrl: "https://github.com/username/financetracker",
-    liveUrl: "https://financetracker-demo.vercel.app"
+    liveUrl: "https://financetracker-demo.vercel.app",
+    features: ["Expense tracking", "Budget planning", "Investment insights", "Financial reports", "Bank integration"]
   },
   {
     id: 10,
     title: "StudyBuddy",
     description: "Educational platform with interactive courses, progress tracking, and peer-to-peer learning.",
+    longDescription: "StudyBuddy is an innovative educational platform that combines interactive courses with social learning features, enabling students to learn together and track their progress effectively.",
     image: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=300&fit=crop",
-    technologies: ["Svelte", "FastAPI", "PostgreSQL"],
+    technologies: ["Svelte", "FastAPI", "PostgreSQL", "WebRTC", "Stripe"],
     githubUrl: "https://github.com/username/studybuddy",
-    liveUrl: "https://studybuddy-demo.vercel.app"
+    liveUrl: "https://studybuddy-demo.vercel.app",
+    features: ["Interactive courses", "Progress tracking", "Peer learning", "Live sessions", "Certification"]
   },
   {
     id: 11,
     title: "TravelPlanner",
     description: "AI-powered travel planning app with itinerary generation, booking integration, and local recommendations.",
+    longDescription: "TravelPlanner leverages artificial intelligence to create personalized travel itineraries, integrate with booking platforms, and provide curated local recommendations for an enhanced travel experience.",
     image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=400&h=300&fit=crop",
-    technologies: ["React", "OpenAI API", "MongoDB"],
+    technologies: ["React", "OpenAI API", "MongoDB", "Express", "Google Maps API"],
     githubUrl: "https://github.com/username/travelplanner",
-    liveUrl: "https://travelplanner-demo.vercel.app"
+    liveUrl: "https://travelplanner-demo.vercel.app",
+    features: ["AI itinerary generation", "Booking integration", "Local recommendations", "Expense tracking", "Offline maps"]
   },
   {
     id: 12,
     title: "MindfulMoments",
     description: "Meditation and mindfulness app with guided sessions, progress tracking, and community features.",
+    longDescription: "MindfulMoments promotes mental wellness through guided meditation sessions, mindfulness exercises, and a supportive community platform with comprehensive progress tracking.",
     image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop",
-    technologies: ["React Native", "Firebase", "Redux"],
+    technologies: ["React Native", "Firebase", "Redux", "Audio APIs", "Push Notifications"],
     githubUrl: "https://github.com/username/mindfulmoments",
-    liveUrl: "https://mindfulmoments-demo.vercel.app"
+    liveUrl: "https://mindfulmoments-demo.vercel.app",
+    features: ["Guided meditations", "Progress tracking", "Community support", "Custom timers", "Mood tracking"]
   }
 ];
 

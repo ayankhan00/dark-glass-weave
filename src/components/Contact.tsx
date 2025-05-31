@@ -9,18 +9,64 @@ const Contact = () => {
     email: '',
     message: ''
   });
+  const [errors, setErrors] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
+  const validateForm = () => {
+    const newErrors = {
+      name: '',
+      email: '',
+      message: ''
+    };
+
+    if (!formData.name.trim()) {
+      newErrors.name = 'Name is required';
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = 'Message is required';
+    } else if (formData.message.trim().length < 10) {
+      newErrors.message = 'Message must be at least 10 characters long';
+    }
+
+    setErrors(newErrors);
+    return !Object.values(newErrors).some(error => error !== '');
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [name]: value
     }));
+
+    // Clear error when user starts typing
+    if (errors[name as keyof typeof errors]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!validateForm()) {
+      return;
+    }
+
     setIsSubmitting(true);
     
     // Simulate form submission
@@ -35,6 +81,18 @@ const Contact = () => {
 
     setFormData({ name: '', email: '', message: '' });
     setIsSubmitting(false);
+  };
+
+  const copyToClipboard = async (text: string, type: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      toast({
+        title: `${type} copied!`,
+        description: `${text} has been copied to your clipboard.`,
+      });
+    } catch (err) {
+      console.error('Failed to copy: ', err);
+    }
   };
 
   return (
@@ -56,7 +114,7 @@ const Contact = () => {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
-                  Name
+                  Name *
                 </label>
                 <input
                   type="text"
@@ -64,15 +122,19 @@ const Contact = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 backdrop-blur-sm bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all duration-200"
+                  className={`w-full px-4 py-3 backdrop-blur-sm bg-white/10 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all duration-200 ${
+                    errors.name ? 'border-red-500/50' : 'border-white/20'
+                  }`}
                   placeholder="Your name"
                 />
+                {errors.name && (
+                  <p className="mt-1 text-sm text-red-400">{errors.name}</p>
+                )}
               </div>
               
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                  Email
+                  Email *
                 </label>
                 <input
                   type="email"
@@ -80,26 +142,34 @@ const Contact = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 backdrop-blur-sm bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all duration-200"
+                  className={`w-full px-4 py-3 backdrop-blur-sm bg-white/10 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all duration-200 ${
+                    errors.email ? 'border-red-500/50' : 'border-white/20'
+                  }`}
                   placeholder="your.email@example.com"
                 />
+                {errors.email && (
+                  <p className="mt-1 text-sm text-red-400">{errors.email}</p>
+                )}
               </div>
               
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
-                  Message
+                  Message *
                 </label>
                 <textarea
                   id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  required
                   rows={5}
-                  className="w-full px-4 py-3 backdrop-blur-sm bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all duration-200 resize-none"
+                  className={`w-full px-4 py-3 backdrop-blur-sm bg-white/10 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all duration-200 resize-none ${
+                    errors.message ? 'border-red-500/50' : 'border-white/20'
+                  }`}
                   placeholder="Tell me about your project..."
                 />
+                {errors.message && (
+                  <p className="mt-1 text-sm text-red-400">{errors.message}</p>
+                )}
               </div>
               
               <button
@@ -118,27 +188,29 @@ const Contact = () => {
               <h3 className="text-2xl font-semibold mb-6 text-white">Get in touch</h3>
               
               <div className="space-y-4">
-                <div>
+                <div 
+                  className="cursor-pointer hover:bg-white/5 p-3 rounded-lg transition-colors duration-200"
+                  onClick={() => copyToClipboard('ayan.gomail@gmail.com', 'Email')}
+                >
                   <h4 className="font-semibold text-gray-300 mb-1">Email</h4>
-                  <a 
-                    href="mailto:ayan.gomail@gmail.com"
-                    className="text-blue-400 hover:text-blue-300 transition-colors duration-200"
-                  >
+                  <p className="text-blue-400 hover:text-blue-300 transition-colors duration-200">
                     ayan.gomail@gmail.com
-                  </a>
+                  </p>
+                  <span className="text-xs text-gray-500">Click to copy</span>
                 </div>
                 
-                <div>
+                <div 
+                  className="cursor-pointer hover:bg-white/5 p-3 rounded-lg transition-colors duration-200"
+                  onClick={() => copyToClipboard('+92 XXX XXX XXXX', 'Phone')}
+                >
                   <h4 className="font-semibold text-gray-300 mb-1">Phone</h4>
-                  <a 
-                    href="tel:+92XXXXXXXXXX"
-                    className="text-blue-400 hover:text-blue-300 transition-colors duration-200"
-                  >
+                  <p className="text-blue-400 hover:text-blue-300 transition-colors duration-200">
                     +92 XXX XXX XXXX
-                  </a>
+                  </p>
+                  <span className="text-xs text-gray-500">Click to copy</span>
                 </div>
                 
-                <div>
+                <div className="p-3">
                   <h4 className="font-semibold text-gray-300 mb-1">Location</h4>
                   <p className="text-gray-400">Karachi, Pakistan</p>
                 </div>
@@ -154,6 +226,7 @@ const Contact = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group backdrop-blur-sm bg-white/10 hover:bg-white/20 p-4 rounded-lg border border-white/20 hover:border-white/30 transition-all duration-300 transform hover:scale-105"
+                  title="GitHub Profile"
                 >
                   <Github className="w-6 h-6 text-gray-300 group-hover:text-white transition-colors duration-200" />
                 </a>
@@ -163,6 +236,7 @@ const Contact = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group backdrop-blur-sm bg-white/10 hover:bg-white/20 p-4 rounded-lg border border-white/20 hover:border-white/30 transition-all duration-300 transform hover:scale-105"
+                  title="LinkedIn Profile"
                 >
                   <Linkedin className="w-6 h-6 text-gray-300 group-hover:text-white transition-colors duration-200" />
                 </a>
