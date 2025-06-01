@@ -201,18 +201,18 @@ const Contact = () => {
                 
                 <div 
                   className="cursor-pointer hover:bg-white/5 p-3 rounded-lg transition-colors duration-200"
-                  onClick={() => copyToClipboard('+92 XXX XXX XXXX', 'Phone')}
+                  onClick={() => copyToClipboard('+92 336 041 2273', 'Phone')}
                 >
                   <h4 className="font-semibold text-gray-300 mb-1">Phone</h4>
                   <p className="text-blue-400 hover:text-blue-300 transition-colors duration-200">
-                    +92 XXX XXX XXXX
+                    +92 336 041 2273
                   </p>
                   <span className="text-xs text-gray-500">Click to copy</span>
                 </div>
                 
                 <div className="p-3">
                   <h4 className="font-semibold text-gray-300 mb-1">Location</h4>
-                  <p className="text-gray-400">Karachi, Pakistan</p>
+                  <p className="text-gray-400">Lahore, Pakistan</p>
                 </div>
               </div>
             </div>
